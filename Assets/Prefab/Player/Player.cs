@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     [SerializeField] [Range(0, 1)] float GroundCheckRadious = 0.2f;
 
     [SerializeField] LayerMask GroundCheckLayerMask;
+    [SerializeField] Vector3 BlockageCheckHalfExtend;
+    [SerializeField] string BlockageCheckTag = "Threat";
+
 
     Vector3 Destination;
 
@@ -52,7 +55,7 @@ public class Player : MonoBehaviour
         {
             if (LaneTransforms[i].position == transform.position)
             {
-                CurrentLaneIndex = 1;
+                CurrentLaneIndex = i;
                 Destination = LaneTransforms[i].position;
             }
         }
@@ -64,76 +67,63 @@ public class Player : MonoBehaviour
 
     private void JumpPerformed(InputAction.CallbackContext context)
     {
-        if(!isOnGround())
+        if(isOnGround())
         {
-            return;
-        }
-        Rigidbody rigidBody = GetComponent<Rigidbody>();
-        if (rigidBody!= null)
-        {
-            //Calculate gravity
-            float jumpUpSpeed = Mathf.Sqrt(2 * JumpHeight * Physics.gravity.magnitude);
-            rigidBody.AddForce(new Vector3(0.0f, jumpUpSpeed, 0.0f ), ForceMode.VelocityChange);
+            Rigidbody rigidBody = GetComponent<Rigidbody>();
+            if (rigidBody != null)
+            {
+                //Calculate gravity
+                float jumpUpSpeed = Mathf.Sqrt(2 * JumpHeight * Physics.gravity.magnitude);
+                rigidBody.AddForce(new Vector3(0.0f, jumpUpSpeed, 0.0f), ForceMode.VelocityChange);
+            }
         }
     }
 
     private void MovePerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        if (!isOnGround())
-        {
-            return;
-        }
         float InputValue = context.ReadValue<float>();
+        int GoalIndex = CurrentLaneIndex;
         //Debug.Log($"move action performed, with value {InputValue}.");
         if (InputValue > 0)
         {
-            MoveRight();
+            if (GoalIndex == LaneTransforms.Length - 1) return;
+            GoalIndex++;
         }
         else
         {
-            MoveLeft();
+            if (CurrentLaneIndex == 0) return;
+            GoalIndex--;
         }
-    }
 
-    private void MoveLeft()
-    {
-        if(CurrentLaneIndex == 0)
+        Vector3 GoalPos = LaneTransforms[GoalIndex].position;
+        if(GameplayStatics.IsPositionOccupied(GoalPos, BlockageCheckHalfExtend, BlockageCheckTag))
         {
             return;
         }
 
-        CurrentLaneIndex--;
-        Destination = LaneTransforms[CurrentLaneIndex].position;
-    }
-
-    private void MoveRight()
-    {
-        if (CurrentLaneIndex == LaneTransforms.Length - 1)
-        {
-            return;
-        }
-
-        CurrentLaneIndex++;
-        Destination = LaneTransforms[CurrentLaneIndex].position;
+        CurrentLaneIndex = GoalIndex;
+        Destination = GoalPos;
     }
     // Update is called once per frame
     void Update()
     {
-        //ground check
-        if(!isOnGround())
-        {
-            //set the IsOnGround parameter based on ground check
-            animator.SetBool("IsOnGround", false);
-            //Debug.Log("Player is not on ground ");
-            return;
-        }
-        animator.SetBool("IsOnGround", true);
-        //Debug.Log("Player is on ground ");
         //Lerping 
         //transform.position = Vector3.Lerp(transform.position, Destination, Time.deltaTime * MoveSpeed);
         float TransformX = Mathf.Lerp(transform.position.x, Destination.x, Time.deltaTime * MoveSpeed);
         transform.position = new Vector3(TransformX, transform.position.y, transform.position.z);
-        
+        //ground check
+        if (!isOnGround())
+        {
+            //set the IsOnGround parameter based on ground check
+            animator.SetBool("IsOnGround", false);
+            //Debug.Log("Player is not on ground ");
+        }
+        else
+        {
+            animator.SetBool("IsOnGround", true);
+            //Debug.Log("Player is on ground ");
+        }
+
     }
 
     private void LateUpdate()

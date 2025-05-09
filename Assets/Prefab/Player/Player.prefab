@@ -135,6 +135,8 @@ MonoBehaviour:
   GroundCheckLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  BlockageCheckHalfExtend: {x: 0.5, y: 0.5, z: 1}
+  BlockageCheckTag: Threat
 --- !u!54 &3659300818795814382
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -8,9 +8,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -793770680368087315, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
+      propertyPath: _SpawnInterval
+      value: 5.42
+      objectReference: {fileID: 0}
     - target: {fileID: 103385331601647043, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
       propertyPath: m_Name
       value: Train
+      objectReference: {fileID: 0}
+    - target: {fileID: 166123220430006526, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4586
+      objectReference: {fileID: 0}
+    - target: {fileID: 166123220430006526, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.338423
+      objectReference: {fileID: 0}
+    - target: {fileID: 166123220430006526, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.141
+      objectReference: {fileID: 0}
+    - target: {fileID: 166123220430006526, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.013
       objectReference: {fileID: 0}
     - target: {fileID: 3985633679927992935, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
       propertyPath: m_LocalPosition.x

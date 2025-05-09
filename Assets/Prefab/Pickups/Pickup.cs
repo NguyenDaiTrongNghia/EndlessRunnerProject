@@ -8,6 +8,8 @@ public class Pickup : Spawnable
     [SerializeField] float SpeedEffect;
     [SerializeField] float SpeedEffectDuration;
 
+    bool bAdjusted = false;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
@@ -25,17 +27,23 @@ public class Pickup : Spawnable
                 scoreKeeper.ChangeScore(scoreEffect);
             }
 
-            Destroy(gameObject);
+            PickedUpBy(other.gameObject);
         }
 
-        if(other.gameObject.tag == "Threat")
+        if(other.gameObject.tag == "Threat" && !bAdjusted)
         {
             //Debug.Log("Over lap");
             Collider col = other.GetComponent<Collider>();
             if(col!=null)
             {
-                transform.position = col.bounds.center + (col.bounds.extents.y + gameObject.GetComponent<Collider>().bounds.center.y) * Vector3.up;
+                transform.position = col.bounds.center + col.bounds.extents.y  * Vector3.up;
+                bAdjusted = true;
             }
         }
+    }
+
+    protected virtual void PickedUpBy(GameObject picker)
+    {
+        Destroy(gameObject);
     }
 }

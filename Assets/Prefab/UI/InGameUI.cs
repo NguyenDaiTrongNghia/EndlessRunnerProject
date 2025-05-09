@@ -19,7 +19,7 @@ public class InGameUI : MonoBehaviour
 
     private void UpdateScoreText(int newVal)
     {
-        ScoreText.SetText($"Score: {newVal}");
+        ScoreText.SetText($"Coin: {newVal}");
     }
 
     // Update is called once per frame

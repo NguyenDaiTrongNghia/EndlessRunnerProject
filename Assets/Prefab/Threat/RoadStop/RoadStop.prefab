@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -793770680368087315, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
+      propertyPath: _SpawnInterval
+      value: 2.74
+      objectReference: {fileID: 0}
     - target: {fileID: -733920403318043082, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
       propertyPath: MoveSpeed
       value: 5
@@ -15,6 +19,22 @@ PrefabInstance:
     - target: {fileID: 103385331601647043, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
       propertyPath: m_Name
       value: RoadStop
+      objectReference: {fileID: 0}
+    - target: {fileID: 166123220430006526, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.9858689
+      objectReference: {fileID: 0}
+    - target: {fileID: 166123220430006526, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.80009
+      objectReference: {fileID: 0}
+    - target: {fileID: 166123220430006526, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.24727693
+      objectReference: {fileID: 0}
+    - target: {fileID: 166123220430006526, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.242
       objectReference: {fileID: 0}
     - target: {fileID: 1092675255866301450, guid: f056bbd5c419e6745b95db18c081677b, type: 3}
       propertyPath: m_LocalScale.x
